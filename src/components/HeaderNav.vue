@@ -28,13 +28,16 @@ export default {
 .header-nav {
   display: flex;
   position: fixed;
+  z-index: 10000;
   height: 3.3rem;
+  top: 0;
   width: 100vw;
-  border: 1px 0 solid #ccc;
-  box-shadow: 0 1px #ccc;
-  background-color: #fff;
   line-height: 3.3rem;
+  overflow: hidden;
   padding: 0 1.2rem;
+  border-color: #eaecef;
+  background-color: #fff;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.1);
   .showlist-icon {
     font-size: 2rem;
     cursor: pointer;
