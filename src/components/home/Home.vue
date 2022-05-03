@@ -20,8 +20,8 @@
 <script>
 import Article from "./Article.vue";
 import MySelf from "./MySelf.vue";
-import { ref, onBeforeMount, reactive } from "vue";
-import { useRouter } from 'vue-router';
+import { ref, onBeforeMount, reactive, watch } from "vue";
+import { useRouter, useRoute } from 'vue-router';
 import api from "../../api/index";
 export default {
   components: {
@@ -31,7 +31,7 @@ export default {
   setup() {
     let isMobile = ref(false);
     let articles = reactive([]);
-    const router = useRouter()
+    const router = useRouter();
 
     //跳转至具体文章页面
     function toDetailArticle(title, cate) {

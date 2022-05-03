@@ -50,20 +50,6 @@ export default {
         console.log(err, "获取目录失败！");
       }
     })
-    // (async () => {
-    //   try {
-    //     let res = await api.getAllCategories();
-    //     if (res.status != 200) {
-    //       throw new Error("获取目录失败！");
-    //     }
-
-    //     res.data.data.forEach((item) => {
-    //       cates.push(item);
-    //     });
-    //   } catch (err) {
-    //     console.log(err, "获取目录失败！");
-    //   }
-    // })();
 
     return {
       cates,

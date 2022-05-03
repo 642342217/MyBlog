@@ -3,8 +3,10 @@
     <div class="showlist-icon iconfont" v-if="showlist">&#xeaf1;</div>
     <div class="title">MyBlog</div>
     <div class="show-list">
-      <div><i class="iconfont">&#xe751;</i>主页</div>
-      <div><i class="iconfont">&#xe66b;</i>目录</div>
+      <div @click="toHome"><i class="iconfont">&#xe751;</i>主页</div>
+      <div @mouseenter="showCate" class="cate"><i class="iconfont">&#xe66b;</i>目录
+        <CateList />
+      </div>
       <div><i class="iconfont">&#xe8c4;</i>时间线</div>
       <div><i class="iconfont">&#xe655;</i>关于</div>
     </div>
@@ -12,13 +14,23 @@
 </template>
 
 <script>
+import CateList from './showCate/CateList.vue';
 import { ref } from "vue";
+import { useRouter } from 'vue-router';
 export default {
+  components: { CateList },
   setup() {
     let showlist = ref(true);
+    const router = useRouter();
+
+    function toHome() {
+      router.push({ path: '/' });
+    }
 
     return {
       showlist,
+      toHome,
+
     };
   },
 };
@@ -33,7 +45,6 @@ export default {
   top: 0;
   width: 100vw;
   line-height: 3.3rem;
-  overflow: hidden;
   padding: 0 1.2rem;
   border-color: #eaecef;
   background-color: #fff;
@@ -60,6 +71,9 @@ export default {
         &:hover {
             color: #3eaf7c;
         }
+    }
+    .cate {
+      position: relative;
     }
     i {
         margin: 0 0.3rem;

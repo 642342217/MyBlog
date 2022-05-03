@@ -2,7 +2,7 @@
   <div class="article">
     <div class="title">{{ title }}</div>
     <div class="description">
-      <i class="iconfont">&#xe65c;<span> {{title}}</span></i>
+      <i class="iconfont">&#xe65c;<span> HUIJUN</span></i>
       <i class="iconfont">&#xe8c4;<span> {{date}}</span></i>
       <i class="iconfont">&#xe63e;<span> {{category}}</span></i>
     </div>
@@ -15,7 +15,7 @@ export default {
   props: ['title', 'date', 'category'],
   setup(props) {
     const { title, date, category } = toRefs(props);
-    console.log(title);
+
     return {
       title,
       date,

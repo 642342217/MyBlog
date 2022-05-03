@@ -1,79 +1,104 @@
 <template>
   <div class="article">
     <div class="left" v-if="!isMobile">
-
+      <Aside
+        :cate="article.category"
+        :titles="titles"
+        @getArticle="getArticle"
+      />
     </div>
     <div class="right">
       <div class="title">{{ article.title }}</div>
       <div class="description">
         <i class="iconfont">&#xe65c;<span> HUIJUN</span></i>
-        <i class="iconfont">&#xe8c4;<span> {{ article.date }}</span></i>
-        <i class="iconfont">&#xe63e;<span> {{ article.category }}</span></i>
+        <i class="iconfont"
+          >&#xe8c4;<span> {{ article.date }}</span></i
+        >
+        <i class="iconfont"
+          >&#xe63e;<span> {{ article.category }}</span></i
+        >
       </div>
       <div class="content">
-          <article v-html="article.content" class="markdown-body"></article>
+        <article v-html="article.content" class="markdown-body"></article>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import api from '../../api/index';
-import MarkdownIt from 'markdown-it';
-import hljs from 'highlight.js';
-import 'highlight.js/styles/default.css';
-import '../../assets/markdown.css';
-import { ref, onBeforeMount, reactive } from "vue";
-import { useStore } from 'vuex';
-import { useRoute } from 'vue-router'; 
+import Aside from "./Aside.vue";
+import api from "../../api/index";
+import MarkdownIt from "markdown-it";
+// import hljs from "highlight.js";
+// import "highlight.js/styles/default.css";
+import "../../assets/markdown.css";
+import { ref, onBeforeMount, reactive, watch, toRefs } from "vue";
+import { useStore } from "vuex";
+import { useRoute } from "vue-router";
 export default {
+  components: { Aside },
   setup() {
     let isMobile = ref(false);
     const store = useStore();
     const article = reactive({});
     const route = useRoute();
+    const currentRoute = reactive(useRoute());
 
     function setIsMoble() {
       isMobile.value =
         document.documentElement.clientWidth > 991.98 ? false : true;
     }
 
-    const artitleTitle = route.query.title;
     //引入md对象，将md文档转换为html格式
     //并设置高亮模式
-     const md = new MarkdownIt({
-        highlight: function (str, lang) {
-          if (lang && hljs.getLanguage(lang))
-          {
-            try
-            {
-              return '<pre class="hljs"><code>' +
-                hljs.highlight(lang, str, true).value +
-                '</code></pre>';
-            } catch (__) { }
-          }
-          return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
-        }
-      });
+    // const md = new MarkdownIt({
+    //   highlight: function (str, lang) {
+    //     if (lang && hljs.getLanguage(lang)) {
+    //       try {
+    //         return (
+    //           '<pre class="hljs"><code>' +
+    //           hljs.highlight(lang, str, true).value +
+    //           "</code></pre>"
+    //         );
+    //       } catch (__) {}
+    //     }
+    //     return (
+    //       '<pre class="hljs"><code>' +
+    //       md.utils.escapeHtml(str) +
+    //       "</code></pre>"
+    //     );
+    //   },
+    // });
+    const md = new MarkdownIt();
 
-    //查询当前文章信息
-    store.getters.getAllArticles.forEach(item => {
-        if(item.title === artitleTitle) {
-            article.title = item.title;
-            article.category = item.category;
-            article.date = item.date;
-            article.content = md.render(item.content);
-        }
+    //监听路由变化，重新渲染界面
+    watch(currentRoute, () => {
+      getCurrentArticle();
     });
 
+    //查询当前文章信息
+    function getCurrentArticle() {
+      store.getters.getAllArticles.forEach((item) => {
+        if (item.title === currentRoute.query.title) {
+          article.title = item.title;
+          article.category = item.category;
+          article.date = item.date;
+          article.content = md.render(item.content);
+        }
+      });
+    }
+
+    getCurrentArticle();
+
     // 获取当前文章所在目录下的文章
+    let titles = reactive([]);
     const getAllRelArticles = async () => {
       let data = await api.getAllRelArticles(route.query.cate);
 
-      console.log(data);
-    }
-
-
+      data.data.data.forEach((item) => {
+        titles.push(item);
+      });
+    };
 
     //检测当前可视窗口的大小
     onBeforeMount(() => {
@@ -84,7 +109,8 @@ export default {
 
     return {
       isMobile,
-      article
+      article,
+      titles,
     };
   },
 };
@@ -106,7 +132,7 @@ export default {
     box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.1);
     max-width: 60vw;
     &:hover {
-        box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.2);
     }
     .title {
       transition: 0.3s all;
@@ -131,14 +157,12 @@ export default {
     overflow: hidden;
     position: fixed;
     width: 14.76rem;
-    height: 100px;
     font-size: 15px;
     top: 7.3rem;
     left: 0;
-    background-color: red;
   }
   .aside {
-      width: 14.76rem;
+    width: 14.76rem;
   }
 }
 </style>
