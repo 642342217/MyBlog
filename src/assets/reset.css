@@ -38,10 +38,14 @@ a {
   text-decoration: none;
 }
 
+p {
+  line-height: 1.9rem;
+}
+
 li {
   list-style: inherit;
   margin: 0.5rem 0;
-  line-height: 1.3rem;
+  line-height: 1.9rem;
 }
 
 body {

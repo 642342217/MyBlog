@@ -1,5 +1,5 @@
 <template>
-  <div class="personal">
+  <div :class="{ 'personal': true, 'day': isDay}">
     <div class="personal-info">
       <img src="src\assets\image\avatar.jpg" alt="author-avatar" />
       <h3>HUIJUN</h3>
@@ -26,7 +26,8 @@
 
 <script>
 import api from '../../api/index';
-import { reactive, onBeforeMount } from 'vue';
+import { reactive, onBeforeMount, toRefs } from 'vue';
+import { useStore } from 'vuex';
 import Cate from "./Cate.vue";
 export default {
   components: {
@@ -34,6 +35,8 @@ export default {
   },
   setup() {
     const cates = reactive([]);
+    const store = useStore();
+    let { getIsDay: isDay } = toRefs(store.getters);
 
     // 获取信息
     onBeforeMount(async() => {
@@ -49,10 +52,11 @@ export default {
       } catch (err) {
         console.log(err, "获取目录失败！");
       }
-    })
+    });
 
     return {
       cates,
+      isDay
     };
   },
 };
@@ -103,5 +107,11 @@ export default {
   h4 {
     margin: 20px 0;
   }
+}
+.day {
+  color: white !important;
+  background-color: #000 !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 1px 8px 0 #eaecef !important;
 }
 </style>

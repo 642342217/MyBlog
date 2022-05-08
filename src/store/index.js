@@ -7,7 +7,13 @@ export const store = createStore({
             //所有文章
             articles: [],
             //所有目录
-            categories: []
+            categories: [],
+            //左侧个人中心是否显示
+            isShowPersonal: false,
+            //白天-黑夜模式切换
+            isDay: false,
+            //当前页码
+            curPage: 1
         }
     },
 
@@ -36,6 +42,15 @@ export const store = createStore({
         },
         setCategories(state, categories) {
             state.categories = categories.slice();
+        },
+        setIsShowPersonal(state) {
+            state.isShowPersonal = state.isShowPersonal ? false : true;
+        },
+        setIsDay(state) {
+            state.isDay = state.isDay ? false : true;
+        },
+        setCurPage(state, num) {
+            state.curPage = num;
         }
     },
 
@@ -45,6 +60,15 @@ export const store = createStore({
         },
         getAllCategories(state) {
             return state.categories;
+        },
+        getIsShowPersonal(state) {
+            return state.isShowPersonal;
+        },
+        getIsDay(state) {
+            return state.isDay;
+        },
+        getCurPage(state) {
+            return state.curPage;
         }
     }
 });

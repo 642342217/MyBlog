@@ -17,7 +17,9 @@ code {
   display: inline;
   font-size: 1rem;
   border-color: #eaecef;
-  background-color: #fff;
+  background-color: #2d2d2d;
+  padding: 0.25rem;
+  color: #FAEBD7;
   box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.1);
   line-height: 1.5em;
 }
@@ -35,7 +37,7 @@ pre code {
   padding: 2px 2px;
   display: block !important;
   background-color: #2d2d2d;
-  padding: 0.5rem 0 0.5rem 0.5rem;
+  padding: 0.5rem;
   color: #FAEBD7;
   line-height: 1.4rem;
   font-size: 0.85rem;
@@ -112,29 +114,31 @@ blockquote::before, blockquote::after, q::before, q::after {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  margin: 20px 0 10px;
+  margin: 1rem 0 0.5rem;
   padding: 0;
   font-style: bold !important;
 }
 
 h1 {
-  font-size: 24px !important;
-  border-bottom: 1px solid #ddd !important;
+  font-size: 2rem !important;
 }
 
 h2 {
-  font-size: 20px !important;
-  border-bottom: 1px solid #eee !important;
+  font-size: 1.8rem !important;
 }
 
 h3 {
-  font-size: 18px;
+  font-size: 1.5rem;
 }
 
 h4 {
-  font-size: 16px;
+  font-size: 1.2rem;
 }
 
+img {
+  width: 80%;
+  height: auto;
+}
 
 table {
   padding: 0;

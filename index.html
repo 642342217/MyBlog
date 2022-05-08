@@ -1,14 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <!-- 导入element-plus样式表 -->
-  <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
+  <!-- <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" /> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MyBlog</title>
 </head>
+
 <body>
   <div id="app"></div>
+  <script>
+    fnResize()
+    window.onresize = function () {
+      fnResize()
+    }
+    function fnResize() {
+      var deviceWidth = document.documentElement.clientWidth || window.innerWidth
+      if (deviceWidth >= 750) {
+        deviceWidth = 750
+      }
+      if (deviceWidth <= 320) {
+        deviceWidth = 320
+      }
+      document.documentElement.style.fontSize = (deviceWidth / 50) + 'px'
+    }
+  </script>
   <script type="module" src="/src/main.js"></script>
 </body>
+
 </html>

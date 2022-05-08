@@ -2,64 +2,56 @@
   <div class="description">MyBlog</div>
   <div class="content">
     <div class="left">
-      <Article
-        v-for="article in articles"
-        :key="article.id"
-        :category="article.category"
-        :date="article.date"
-        :title="article.title"
-        @click="() => toDetailArticle(article.title, article.category)"
-      />
+      <Article v-for="(article, index) in articles" :key="article.id" :category="article.category" :date="article.date"
+        :title="article.title" :id="'index' + index"/>
+      <MyPage />
     </div>
-    <div class="right" v-if="!isMobile">
+    <div v-if="!isMobile">
       <MySelf />
     </div>
   </div>
 </template>
 
 <script>
+import MyPage from '../MyPage.vue';
 import Article from "./Article.vue";
 import MySelf from "./MySelf.vue";
-import { ref, onBeforeMount, reactive, watch } from "vue";
-import { useRouter, useRoute } from 'vue-router';
-import api from "../../api/index";
+import { useStore } from "vuex";
+import { ref, reactive, watch, toRefs, computed } from "vue";
 export default {
   components: {
     Article,
     MySelf,
+    MyPage
   },
   setup() {
-    let isMobile = ref(false);
+    let isMobile = ref(true);
     let articles = reactive([]);
-    const router = useRouter();
+    const store = useStore();
+    let { getCurPage: curPage } = toRefs(store.getters);
 
-    //跳转至具体文章页面
-    function toDetailArticle(title, cate) {
-      router.push({ path: '/article', query: {
-        title,
-        cate
-      }});
+    setIsMoble();
+
+    const temp = computed(() => store.getters.getAllArticles);
+
+    watch([curPage, temp], ([newPage]) => {
+      articles.length = 0;
+      temp.value.slice((newPage - 1) * 8, (newPage - 1) * 8 + 8).forEach(data => {
+        articles.push(data);
+      });
+    }, { immediate: true, deep: true } );
+
+    function setIsMoble() {
+      isMobile.value =
+        document.documentElement.clientWidth > 991.98 ? false : true;
     }
 
-    onBeforeMount(async () => {
-      try {
-        let res = await api.getAllArticles();
-        if (res.status != 200) {
-          throw new Error("获取文章失败！");
-        }
-
-        res.data.data.forEach((item) => {
-          articles.push(item);
-        });
-      } catch (err) {
-        console.log(err, "获取文章失败！");
-      }
-    });
+    window.addEventListener("resize", setIsMoble);
 
     return {
       isMobile,
       articles,
-      toDetailArticle
+      temp
     };
   },
 };
@@ -67,23 +59,50 @@ export default {
 
 <style scoped lang="less">
 .description {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  height: 100vh;
+  width: 100vw;
   font-size: 3rem;
   font-weight: 700;
+  text-align: center;
+  line-height: 100vh;
 }
+
 .content {
   display: flex;
   position: absolute;
-  top: 88vh;
+  top: 100vh;
   box-sizing: border-box;
   padding: 0 2rem;
   width: 100%;
   height: 200px;
+
   .left {
     flex: 1;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .description {
+    position: absolute;
+    left: 50%;
+    top: 25vh;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    font-weight: 700;
+  }
+
+  .content {
+    display: flex;
+    position: absolute;
+    top: 40vh;
+    box-sizing: border-box;
+    padding: 0 2rem;
+    width: 100%;
+    height: 200px;
+
+    .left {
+      flex: 1;
+    }
   }
 }
 </style>

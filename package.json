@@ -7,10 +7,8 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
-    "element-plus": "^2.1.8",
     "highlight.js": "^11.5.1",
     "markdown-it": "^13.0.0",
-    "mavon-editor": "^2.10.4",
     "punycode": "^2.1.1",
     "vue": "^3.0.4",
     "vue-router": "^4.0.14",
