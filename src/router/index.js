@@ -4,6 +4,7 @@ import Home from '../components/home/home.vue';
 import ArticleDetail from '../components/Article/ArticleDetail.vue';
 import CateArticles from '../components/ArticlesOfCate/CateArticles.vue';
 import Content from '../components/Article/Content.vue';
+import TimeLine from '../components/Timeline/TimeLine.vue';
 const routes = [
     {
         path: '/',
@@ -23,6 +24,10 @@ const routes = [
     {
         path: '/category',
         component: CateArticles
+    },
+    {
+        path: '/timeline',
+        component: TimeLine
     }
 ];
 

@@ -18,6 +18,8 @@ html {
   height: 100%;
   font-size: 15.8px;
   scroll-behavior: smooth;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 body {
@@ -56,4 +58,9 @@ body {
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius:10px;
+  background: #3eaf7c;
 }
