@@ -12,7 +12,7 @@
         <i class="iconfont">&#xe66b;</i>目录
         <CateList v-if="isShow" />
       </div>
-      <div><i class="iconfont">&#xe8c4;</i>时间线</div>
+      <div @click="toTimeLine"><i class="iconfont">&#xe8c4;</i>时间线</div>
       <div><i class="iconfont">&#xe655;</i>关于</div>
     </div>
   </div>
@@ -64,6 +64,11 @@ export default {
       store.commit('setIsDay');
     }
 
+    //跳转至时间线页面
+    function toTimeLine() {
+      router.push({ path: '/timeline' });
+    }
+
 
     window.addEventListener('resize', setIsMoble);
 
@@ -76,7 +81,8 @@ export default {
       showPersonal,
       isShowPersonal,
       isDay,
-      changeDay
+      changeDay,
+      toTimeLine
     };
   },
 };
