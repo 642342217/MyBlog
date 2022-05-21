@@ -29,7 +29,7 @@
           </li>
         </ul>
       </div>
-      <div><i class="iconfont">&#xe8c4;</i>时间线</div>
+      <div @click="toTimeLine"><i class="iconfont">&#xe8c4;</i>时间线</div>
       <div><i class="iconfont">&#xe655;</i>关于</div>
     </div>
   </div>
@@ -75,6 +75,12 @@ export default {
       store.commit('setIsShowPersonal');
     }
 
+    //跳转至时间线页面
+    function toTimeLine() {
+      store.commit('setIsShowPersonal');
+      router.push({ path: '/timeline' });
+    }
+
     return {
       isShowList,
       showList,
@@ -82,7 +88,8 @@ export default {
       toDetailCate,
       toHome,
       hidPersonal,
-      isDay
+      isDay,
+      toTimeLine
     };
   },
 };

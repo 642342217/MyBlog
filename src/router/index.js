@@ -35,8 +35,6 @@ const router = createRouter({
     routes,
     history: createWebHistory(),
     scrollBehavior(to, from, savedPosition) {
-        console.log(to.path);
-        console.log(from.path);
         if(to.path === '/article/content' || to.path === '/category' || to.path === '/') {
             return { 
                 top: 0,
