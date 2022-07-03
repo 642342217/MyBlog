@@ -3,7 +3,7 @@
   <div :class="{ 'personal': true, 'day': isDay }">
     <!-- 个人基本信息 -->
     <div class="personal-info">
-      <img src="src\assets\image\avatar.jpg" alt="author-avatar" />
+      <img src="../../../assets/image/avatar.jpg" alt="author-avatar" />
       <h3>HUIJUN</h3>
       <div class="num">
         <div>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://127.0.0.1:0815';
+axios.defaults.baseURL = 'http://43.142.12.243:0815';
 
 export default  {
     //获取所有文章
