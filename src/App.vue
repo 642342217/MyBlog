@@ -52,7 +52,7 @@ export default {
   // min-height: 100vh;
   height: max-content;
   width: 100%;
-  background: url(https://sanyuan0704.top/assets/img/bg.2cfdbb33.svg) center
+  background: url(https://cdn.wallpaperhub.app/cloudcache/9/4/2/9/0/d/94290d606fe662243c619a3e49ff3c6263eb3e5f.jpg) center
     center / cover no-repeat;
 }
 .day {
